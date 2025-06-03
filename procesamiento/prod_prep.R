@@ -71,7 +71,7 @@ db_proc$natio_recoded <- car::recode(db_proc$natio_recoded,
 # sex
 frq(db_proc$sex)
 
-db_proc$sex <- car::recode(db_proc$sex, recodes = c("2 = 'Hombre'; 1 = 'Mujer'; 0 = 'Otro'"),
+db_proc$sex <- car::recode(db_proc$sex, recodes = c("2 = 'Male'; 1 = 'Female'; 0 = 'Other'"),
                                      as.factor = T)
 
 
