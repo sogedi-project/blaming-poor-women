@@ -42,10 +42,14 @@ db_proc <- sjlabelled::copy_labels(df_new = db_proc, df_origin = db_proc_lab)
 # 3.1 Select ----
 
 db_proc <- db_proc %>% 
-  dplyr::select(ID, natio_recoded, age, sex, edu, ses, po, inc, n_perso, currency, 
+  dplyr::select(ID, natio_recoded, age, sex, edu, ses, inc, n_perso, currency, 
                 pro_pw, pro_rw, ris_pw, ris_rw, pre_pw, pre_rw,
                 wel_abu_1, wel_abu_2, wel_pa_1, wel_pa_2, 
-                wel_ho_1, wel_ho_2) %>% 
+                wel_ho_1, wel_ho_2,
+                pp_pw_1, pp_pw_2, pp_pw_3, pp_pw_4, # paternalism
+                cc_pw_1, cc_pw_2, cc_pw_3, cc_pw_4, # complementary diferentiation
+                hc_pw_1,hc_pw_2,hc_pw_3,hc_pw_4 # hostile
+                ) %>% 
   as_tibble()
 
 # 3.2 Filter ----
@@ -82,9 +86,6 @@ db_proc$age <- sjlabelled::set_na(db_proc$age, na = c(999))
 
 # ses
 frq(db_proc$ses) #ok
-
-# po
-frq(db_proc$po) # ok
 
 # education
 frq(db_proc$edu)
@@ -164,6 +165,32 @@ db_proc %>%
   group_by(natio_recoded) %>% 
   frq()
 
+# Ambivalent classism: paternalism
+db_proc %>% 
+  select(starts_with("pp_pw"), natio_recoded) %>% 
+  group_by(natio_recoded) %>% 
+  frq()
+
+# Ambivalent classism: complementary dif.
+db_proc %>% 
+  select(starts_with("cc_pw"), natio_recoded) %>% 
+  group_by(natio_recoded) %>% 
+  frq()
+
+# Ambivalent classism: hostile
+db_proc %>% 
+  select(starts_with("hc_pw"), natio_recoded) %>% 
+  group_by(natio_recoded) %>% 
+  frq()
+
+# compute
+db_proc$pp_pw <- rowMeans(db_proc[, c("pp_pw_1", "pp_pw_2", "pp_pw_3", "pp_pw_4")], na.rm = TRUE)
+
+db_proc$cc_pw <- rowMeans(db_proc[, c("cc_pw_1", "cc_pw_2", "cc_pw_3", "cc_pw_4")], na.rm = TRUE)
+
+db_proc$hc_pw <- rowMeans(db_proc[, c("hc_pw_1", "hc_pw_2", "hc_pw_3", "hc_pw_4")], na.rm = TRUE)
+
+
 # 3.4 Missings values ----
 
 colSums(is.na(db_proc))
@@ -188,7 +215,6 @@ db_proc$sex <- sjlabelled::set_label(db_proc$sex, "Gender")
 db_proc$edu <- sjlabelled::set_label(db_proc$edu, "Educational level")
 db_proc$edu_dic <- sjlabelled::set_label(db_proc$edu_dic, "Universitary education")
 db_proc$ses <- sjlabelled::set_label(db_proc$ses, "Subjective social status")
-db_proc$po <- sjlabelled::set_label(db_proc$po, "Political identification")
 db_proc$income_quintile <- sjlabelled::set_label(db_proc$income_quintile, "Household equivalent income quintile per capita")
 
 db_proc$pro_pw <- sjlabelled::set_label(db_proc$pro_pw, "Perceived promiscuity for low-SES women")
@@ -212,7 +238,7 @@ db_proc$wel_ho_2 <- sjlabelled::set_label(db_proc$wel_ho_2, "Poor women should r
 # 4. Save and export  ----------------------------------------------------------------
 
 df_study2 <- db_proc %>% 
-  select(ID, country = natio_recoded, age, sex, edu, edu_dic, income_quintile, ses, po,
-         equiv_income_usd, starts_with(c("pro", "ris", "pre", "wel"))) 
+  select(ID, country = natio_recoded, age, sex, edu, edu_dic, income_quintile, ses,
+         equiv_income_usd, starts_with(c("pro", "ris", "pre", "wel", "pp_pw", "cc_pw", "hc_pw"))) 
 
 save(df_study2, file = here("input/data/proc/df_study2.RData"))
