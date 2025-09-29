@@ -4,7 +4,7 @@
 # Institution: Centro de Estudios de Conflicto y Cohesión Social (COES)
 # Responsible: Researcher
 
-# Executive Summary: This script contains the code to data preparation for Contact and Classism
+# Executive Summary: This script contains the code to data preparation for Blaming Poor Women
 # Date: February 6, 2025
 
 # 1. Packages  -----------------------------------------------------
