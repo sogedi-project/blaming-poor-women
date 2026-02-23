@@ -1,0 +1,731 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  spanish,
+  13pt,
+]{article}
+\usepackage{xcolor}
+\usepackage[margin=2cm]{geometry}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+  \setmainfont[]{Times New Roman}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{setspace}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+% definitions for citeproc citations
+\NewDocumentCommand\citeproctext{}{}
+\NewDocumentCommand\citeproc{mm}{%
+  \begingroup\def\citeproctext{#2}\cite{#1}\endgroup}
+\makeatletter
+ % allow citations to break across lines
+ \let\@cite@ofmt\@firstofone
+ % avoid brackets around text for \cite:
+ \def\@biblabel#1{}
+ \def\@cite#1#2{{#1\if@tempswa , #2\fi}}
+\makeatother
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newenvironment{CSLReferences}[2] % #1 hanging-indent, #2 entry-spacing
+ {\begin{list}{}{%
+  \setlength{\itemindent}{0pt}
+  \setlength{\leftmargin}{0pt}
+  \setlength{\parsep}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+   \setlength{\leftmargin}{\cslhangindent}
+   \setlength{\itemindent}{-1\cslhangindent}
+  \fi
+  % set entry spacing
+  \setlength{\itemsep}{#2\baselineskip}}}
+ {\end{list}}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{\hfill\break\parbox[t]{\linewidth}{\strut\ignorespaces#1\strut}}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{\strut#1\strut}}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\ifPDFTeX
+\else
+\babelfont{rm}[]{Times New Roman}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+
+
+\usepackage[noblocks]{authblk}
+\renewcommand*{\Authsep}{, }
+\renewcommand*{\Authand}{, }
+\renewcommand*{\Authands}{, }
+\renewcommand\Affilfont{\small}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Tabla de contenidos}
+\else
+  \newcommand\contentsname{Tabla de contenidos}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Listado de Figuras}
+\else
+  \newcommand\listfigurename{Listado de Figuras}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Listado de Tablas}
+\else
+  \newcommand\listtablename{Listado de Tablas}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Figura}
+\else
+  \newcommand\figurename{Figura}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Tabla}
+\else
+  \newcommand\tablename{Tabla}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Listado}
+\newcommand*\listoflistings{\listof{codelisting}{Listado de Listados}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Diseño estadístico: Encuesta sobre las Implicaciones Psicosociales de la Pobreza, Riqueza y Desigualdad Socioeconómica (PORIDE)},
+  pdfauthor={Mario Sainz Martínez},
+  pdflang={es},
+  colorlinks=true,
+  linkcolor={blue},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Diseño estadístico: Encuesta sobre las Implicaciones
+Psicosociales de la Pobreza, Riqueza y Desigualdad Socioeconómica
+(PORIDE)}
+
+
+  \author{Mario Sainz Martínez}
+            \affil{%
+                  Departamento de Psicología Social, Facultad de
+                  Psicología, Universidad de Granada, Spain
+              }
+      
+\date{}
+\begin{document}
+\maketitle
+
+
+\setstretch{1.5}
+\section{Presentación}\label{presentaciuxf3n}
+
+Esta propuesta expone el diseño estadístico para la implementación de
+una encuesta longitudinal dirigida a personas en situación de pobreza en
+España. Para su elaboración se recurrió a tres fuentes principales: i)
+los textos de referencia de Groves et~al.
+(\citeproc{ref-groves_survey_2011}{2011}), Survey Methodology, y de Lynn
+(\citeproc{ref-lynn_methodology_2009}{2009}), Methodology of
+Longitudinal Surveys, que ofrecen los fundamentos teóricos y técnicos en
+la construcción de encuestas y estudios longitudinales; ii) el diseño de
+la \href{https://manual-metodologico-elsoc.netlify.app/}{Encuesta
+Longitudinal Social de Chile (ELSOC)} desarrollada por el COES,
+utilizada como modelo comparativo y de orientación metodológica; y iii)
+los datos de la
+\href{https://www.ine.es/dyngs/INEbase/es/operacion.htm?c=Estadistica_C&cid=1254736176807&menu=resultados&secc=1254736195153&idp=1254735976608\#_tabs-1254736195153}{Encuesta
+de Condiciones de Vida del INE} en España, que proporcionan información
+clave sobre la magnitud y características de la población en situación
+de pobreza según ingresos. A partir de estas referencias, el documento
+presenta los elementos esenciales para estructurar un instrumento
+longitudinal enfocado en el estudio de esta población específica.
+
+\section{Supuestos}\label{supuestos}
+
+Para alinear la propuesta con criterios operativos realistas y control
+explícito del Error Total de Encuesta (TSE), adoptamos los siguientes
+supuestos y metas de calidad (\citeproc{ref-groves_survey_2011}{Groves
+et~al., 2011}; \citeproc{ref-lynn_methodology_2009}{Lynn, 2009}):
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Población objetivo:} Personas de 16+ años en \textbf{pobreza
+  por ingresos} en España (ámbito nacional), definidas al momento del
+  muestreo. La población de referencia se fija en Ola 1; las mismas
+  personas se siguen en Olas 2 y 3 (panel fijo.
+\item
+  \textbf{Estrategia muestral:} \textbf{Muestreo aleatorio simple (SRS)}
+  de individuos, \textbf{sin estratificación} ni \textbf{conglomeración}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Implicación:} \(Deff = 1\) como supuesto operativo (no hay
+    inflación de varianza por diseño).
+  \item
+    \textbf{Nota:} si los ajustes por no respuesta/calibración generan
+    variabilidad de pesos, se monitorizará el \textbf{deff por pesos}
+    para contener pérdidas de eficiencia
+    (\citeproc{ref-groves_survey_2011}{Groves et~al., 2011}).
+  \end{itemize}
+\item
+  \textbf{Dominios de estimación:} Publicación en \textbf{Total
+  nacional} y \textbf{Sexo} (Mujeres/Hombres). No se exige precisión por
+  CCAA en este diseño.
+\item
+  \textbf{Precisión objetivo:} Margen de error \(\le \pm 5\) p.p., 95\%
+  CI, peor caso \(p=0.5\):\\
+  \[
+  n_{\text{ME}} \;=\; \frac{z_{0.975}^2\,p(1-p)}{e^2}
+  \;=\; \frac{1.96^2\cdot 0.25}{0.05^2}
+  \;\approx\; 385
+  \] Para garantizar \(\pm 5\) p.p. \textbf{por sexo} en \textbf{ola 3},
+  el tamaño total \(n_3\) debe satisfacer\\
+  \(n_3\cdot \pi_f \ge 385 \;\wedge\; n_3\cdot \pi_m \ge 385\),\\
+  con \(\pi_f \approx 0.528\) y \(\pi_m \approx 0.470\) (proporciones
+  observadas en la población pobre).
+\item
+  \textbf{Poder estadístico (ola 3):} \textbf{\(\ge 0.80\)} para
+  detectar \textbf{\(\delta \approx 8\) p.p.} de diferencia por sexo,
+  con proporciones cercanas a \(0.5\) y prueba bilateral
+  \(\alpha=0.05\):\\
+  \[
+  n_{\text{por\,sexo}} \;\approx\;
+  \frac{2\,\bar p(1-\bar p)\,\left(z_{1-\alpha/2}+z_{1-\beta}\right)^2}{\delta^2}
+  \;=\; \frac{2\cdot 0.25\cdot (1.96+0.84)^2}{0.08^2}
+  \;\approx\; 613
+  \] \textbf{Meta conservadora:} fijamos ola 3 total en
+  \(n_3 \approx 1{,}226\) (≈ \(613\) por sexo), lo que cumple poder
+  \(\ge 0.80\) y supera el mínimo de precisión (\(385\)/sexo).
+\item
+  \textbf{Atrición y horizonte longitudinal:} Tres olas, sin refresco,
+  con atrición total del 30\% entre Ola 1 y Ola 3.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Retención acumulada (O1→O3):} \(0.70\).
+  \item
+    \textbf{Retención por intervalo (O1→O2 y O2→O3):}
+    \(r=\sqrt{0.70}\approx 0.8367\).
+  \end{itemize}
+\item
+  \textbf{Dimensionamiento por ola (consistente con poder y
+  precisión):}\\
+  \[
+  n_{1}=\left\lceil \frac{n_{3}}{0.70}\right\rceil,\quad
+  n_{2}\approx \left\lceil n_{1}\cdot r\right\rceil,\quad
+  n_{3}\approx \left\lceil n_{2}\cdot r\right\rceil
+  \] Con \(n_3 \approx 1{,}226 \Rightarrow\) \(n_1 \approx 1{,}752\),
+  \(n_2 \approx 1{,}466\), \(n_3 \approx 1{,}226\).
+\item
+  \textbf{Ponderación y control de sesgo:} Peso base SRS; ajuste por no
+  respuesta (clases o propensión) y calibración a \textbf{Total} y
+  \textbf{Sexo} por ola. El sesgo de no respuesta depende de
+  \(\mathrm{cov}(y,p)\) (no de la tasa bruta); se monitorizará junto con
+  el deff por pesos.
+\end{itemize}
+
+\section{Resumen numérico derivado:}\label{resumen-numuxe9rico-derivado}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Ola 1 = 1,752};
+\item
+  \textbf{Ola 2 = 1,466};
+\item
+  \textbf{Ola 3 = 1,226} (≈ \(613\) por sexo).
+\item
+  \textbf{Total ≈ 4,444 entrevistas}
+\end{itemize}
+
+En ola 3 se garantiza \textbf{ME \(\le \pm 5\) p.p.} por sexo y
+\textbf{poder \(\ge 0.80\)} para \(\delta \approx 8\) p.p.
+
+\section{Universo}\label{universo}
+
+El universo del estudio serán los hombres y mujeres que ese encuentren
+en situación de pobreza en España en 2026.
+
+\section{Población objetivo}\label{poblaciuxf3n-objetivo}
+
+La población objetivo serán los hombres y mujeres mayores de 18 años
+residentes en hogares particulares en España que se encuentran en
+situación de pobreza de acuerdo con el indicador acordado (p.~ej., AROPE
+estimado desde la ECV/INE) en 2026. La población de referencia se define
+en la Ola 1 y las mismas personas son seguidas en dos olas adicionales
+(panel de tres olas anuales).
+
+\section{Unidad de muestreo}\label{unidad-de-muestreo}
+
+La unidad de muestreo son los hombres y mujeres (individuos) mayores de
+18 años que se encuentran en situación de pobreza por ingresos en
+seleccionados directamente en la población.
+
+\section{Unidad de análisis y de
+información}\label{unidad-de-anuxe1lisis-y-de-informaciuxf3n}
+
+La unidad de análisis serán los individuos en situación de pobreza
+cumplen los requisitos para formar parte de la población objetivo. En
+cada ola se levanta un módulo de hogar (composición e ingresos) para
+reconstituir la situación de pobreza del entrevistado.
+
+La unidad de información serán los hombres y mujeres en situación de
+pobreza mayores de 18 años que cumplen los requisitos para formar parte
+de la población objetivo y que resulten seleccionadas en el diseño
+muestral.
+
+Movilidad (movers): se siguen las personas muestrales allí donde residan
+(definir reglas operativas). Lynn
+(\citeproc{ref-lynn_methodology_2009}{2009}) destaca la necesidad de
+reglas frente a cambios de unidad (p.~ej., mudanzas, composición del
+hogar).
+
+\section{Marco muestral}\label{marco-muestral}
+
+El marco muestral corresponde a un listado o procedimientos que permiten
+identificar todos los elementos con probabilidad de ser seleccionados de
+la población objetivo (\citeproc{ref-groves_survey_2011}{Groves et~al.,
+2011}). Se asume muestreo probabílistico aleatorio simple (SRS)
+individual y cobertura nacional (sin dominios territoriales).
+
+\subsection{Conformación marco
+muestral}\label{conformaciuxf3n-marco-muestral}
+
+Completar. Para esto se usa info de estadisticas oficiales de cantidad y
+proporcion de hombres y mujeres en pobreza a nivel nacional. Requisito:
+un marco nominal de personas en pobreza (p.~ej., registros
+administrativos integrados y depurados o listados derivados de un
+operativo de cribado).
+
+\subsection{Selección de unidades}\label{selecciuxf3n-de-unidades}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Construcción/obtención de listado de elegibles (personas en pobreza
+  por ingresos).
+\item
+  Persona: selección aleatoria simple de \(n\) individuos a nivel
+  nacional para Ola 1.
+\item
+  Seguimiento longitudinal: reentrevistar a los mismos individuos en Ola
+  2 y Ola 3. Corresponde a un panel fijo de tres olas (\(t_0\), \(t_1\),
+  \(t_2\)) sin refresco, atrición esperada 30\% por ola (r≈0.70 por
+  transición).
+\end{enumerate}
+
+\section{Diseño muestral
+longitudinal}\label{diseuxf1o-muestral-longitudinal}
+
+\begin{itemize}
+\tightlist
+\item
+  Tipo de muestreo: Probabilístico aleatorio simple (SRS) de personas en
+  el marco muestral. No hay estratos ni conglomerados: esto simplifica
+  el peso base y elimina deff por conglomeración; a costa de no
+  garantizar auto-ponderación por subgrupos geográficos\footnote{Cuando
+    se usan estratos o asignaciones desproporcionadas, pueden lograrse
+    ganancias de precisión si la estratificación reduce la varianza
+    interna; aquí se renuncia a esa ganancia para simplificar y
+    priorizar poder por sexo, manteniendo SRS (deff≈1)
+    (\citeproc{ref-groves_survey_2011}{Groves et~al., 2011}).}.
+\item
+  Panel de tres olas (\(t_0\), \(t_1\), \(t_2\)) reentrevistando a los
+  mismos individuos, sin refresco, atrición esperada 30\% por ola
+  (r≈0.70 por transición).
+\item
+  Sin refresco: cualquier pérdida entre olas se refleja en menor tamaño
+  en la ola siguiente.
+\item
+  Plan de retención: protocolos de contacto, tracking de ``movers'',
+  modos de seguimiento flexibles y recordatorios para minimizar
+  atrición.
+\end{itemize}
+
+\subsection{Dominio de estudio}\label{dominio-de-estudio}
+
+\begin{itemize}
+\tightlist
+\item
+  Total nacional.
+\item
+  Sexo: Mujeres y Hombres (dominios principales de publicación y
+  precisión).
+\end{itemize}
+
+\section{Cálculo y distribución del tamaño
+muestral}\label{cuxe1lculo-y-distribuciuxf3n-del-tamauxf1o-muestral}
+
+\subsection{Parámetros poblacionales
+conocidos}\label{paruxe1metros-poblacionales-conocidos}
+
+\begin{itemize}
+\tightlist
+\item
+  Total personas en pobreza: \(N = 9{,}578{,}080\).
+\item
+  Mujeres: \(5{,}057{,}736\Rightarrow \pi_f\approx 0.528\).
+\item
+  Hombres: \(4{,}503{,}279\Rightarrow \pi_m\approx 0.470\).
+\end{itemize}
+
+\subsection{Precisión objetivo en ola
+3}\label{precisiuxf3n-objetivo-en-ola-3}
+
+Bajo SRS, \(p=0.5\) y 95\% CI:
+
+\[
+n_{\text{ME}}=\frac{z_{0.975}^2\,p(1-p)}{e^2}
+=\frac{1.96^2\cdot 0.25}{0.05^2}\approx 384.16\;\Rightarrow\;385.
+\]
+
+Para garantizar \textbf{por sexo} en \textbf{ola 3}:
+
+\[
+n_{3}\times \pi_f \ge 385,\qquad n_{3}\times \pi_m \ge 385
+\Rightarrow n_{3}\ge \max\!\Big(\frac{385}{\pi_f},\,\frac{385}{\pi_m}\Big)
+= \frac{385}{0.470}\approx \mathbf{822}.
+\]
+
+\subsection{Poder estadístico}\label{poder-estaduxedstico}
+
+Poder ≥ 0.80 para \(δ≈8\) p.p. (sexo, ola 3). Escenario conservador
+(proporciones cercanas a 0.5, tamaños similares por sexo), prueba
+bilateral \((alpha=0.05)\):
+
+\[
+n_{\text{por sexo}}\approx 
+\frac{2\,\bar{p}(1-\bar{p})\,(z_{1-\alpha/2}+z_{1-\beta})^2}{\delta^2}
+=\frac{2\cdot 0.25\cdot (1.96+0.84)^2}{0.08^2}
+\approx \mathbf{613}.
+\]
+
+Por lo tanto, fijamos \textbf{ola 3 total} en:
+
+\[
+n_{3} \approx \mathbf{1{,}226}\quad (\approx 613 \text{ por sexo}),
+\]
+
+que \textbf{cumple poder ≥ 0.80} para δ≈8 p.p. y \textbf{supera} el
+mínimo de precisión (385/sexo).
+
+\subsection{Dimensionamiento por ola (sin refresco; atrición total
+30\%)}\label{dimensionamiento-por-ola-sin-refresco-atriciuxf3n-total-30}
+
+Con \textbf{retención acumulada} \((=0.70)\) y \textbf{retención por
+intervalo} \((r=\sqrt{0.70}\approx 0.8367)\):
+
+\[
+n_{1}=\left\lceil \frac{n_{3}}{0.70} \right\rceil
+=\left\lceil \frac{1{,}226}{0.70}\right\rceil
+=\mathbf{1{,}752},
+\]
+
+\[
+n_{2}\approx \left\lceil n_{1}\cdot r \right\rceil
+=\left\lceil 1{,}752\cdot 0.8367\right\rceil
+=\mathbf{1{,}466},
+\]
+
+\[
+n_{3}\approx \left\lceil n_{2}\cdot r \right\rceil
+=\left\lceil 1{,}466\cdot 0.8367\right\rceil
+=\mathbf{1{,}226}.
+\]
+
+\subsubsection{\texorpdfstring{Tabla de tamaños (SRS, sin refresco,
+atrición total
+30\%){[}\textsuperscript{2,}3{]}}{Tabla de tamaños (SRS, sin refresco, atrición total 30\%){[}2,3{]}}}\label{tabla-de-tamauxf1os-srs-sin-refresco-atriciuxf3n-total-3023}
+
+\begin{longtable}[]{@{}rrrr@{}}
+\toprule\noalign{}
+Ola & Total esperado & Mujeres (≈52.8\%) & Hombres (≈47.0\%) \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+\textbf{Ola 1} & \textbf{1,752} & ≈ 925 & ≈ 823 \\
+\textbf{Ola 2} & \textbf{1,466} & ≈ 774 & ≈ 689 \\
+\textbf{Ola 3} & \textbf{1,226} & \textbf{≈ 647} & \textbf{≈ 576} \\
+\end{longtable}
+
+\begin{itemize}
+\tightlist
+\item
+  En ola 3, ambas celdas superan 613/sexo si la composición observada se
+  aproxima a \(\pi_f,\pi_m\).
+\item
+  Si se desea exactamente 613 por sexo (sin depender de proporciones),
+  puede estratificarse por sexo con asignación igual, manteniendo SRS
+  dentro de cada estrato.
+\end{itemize}
+
+\subsubsection{Verificación rápida}\label{verificaciuxf3n-ruxe1pida}
+
+Precisión en ola 3 (SRS):\\
+- Mujeres \((n\approx 647)\) \(\Rightarrow\)
+\((e\approx 1.96\sqrt{0.25/647}\approx 3.85)\) p.p.\\
+- Hombres \((n\approx 576)\) \(\Rightarrow\)
+\((e\approx 1.96\sqrt{0.25/576}\approx 4.09)\) p.p.\\
+- (Ambos \textbf{mejores} que ±5 p.p.)
+
+\textbf{Poder (δ≈8 p.p.):} \((n_{\text{por sexo}}\ge 613)\) garantiza
+\((1-\beta\ge 0.80)\) en el peor caso; con
+\((n_f\approx647, n_m\approx576)\), el poder es \textbf{≥ 0.80}.
+
+\section{Atrición (prevención y
+medición)}\label{atriciuxf3n-prevenciuxf3n-y-mediciuxf3n}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Prevención:} protocolos de recontacto, \emph{tracking} de
+  movers, incentivos, modos mixtos en seguimiento, calendario flexible.
+\item
+  \textbf{Medición de cambio:} reducir \emph{seam bias} y cambios de
+  medición con \textbf{instrumentos consistentes} y \textbf{dependent
+  interviewing} cuando proceda
+  (\citeproc{ref-lynn_methodology_2009}{Lynn, 2009}).
+\item
+  \textbf{Sesgo de no respuesta:} depende de
+  \(\operatorname{cov}(y, p)\), no de la tasa bruta; monitorizar perfil
+  de respondedores vs.~no respondedores
+  (\citeproc{ref-groves_survey_2011}{Groves et~al., 2011}).
+\end{itemize}
+
+\section{Factores de expansión
+(ponderadores)}\label{factores-de-expansiuxf3n-ponderadores}
+
+\subsection{Peso base}\label{peso-base}
+
+Con \textbf{SRS}:
+
+\[
+w_i^{(0)}=\frac{N_M}{n_{1}},
+\]
+
+donde \((N_M)\) es el tamaño del \textbf{marco} de personas en pobreza.
+
+\subsection{Ajuste por no respuesta (por
+ola)}\label{ajuste-por-no-respuesta-por-ola}
+
+Clases de ajuste o \textbf{modelo de propensión} con variables
+observables del marco (sexo, edad, historial de contacto, etc.):
+
+\[
+w_i^{(\text{NR},t)}=\frac{w_i^{(t-1)}}{\hat{p}_{g(i),t}},
+\]
+
+con \(g(i)\) clases homogéneas o \(\hat{p}\) de un modelo (logit).
+Estándar recomendado en TSE (\citeproc{ref-groves_survey_2011}{Groves
+et~al., 2011}).
+
+\subsection{Calibración (post-estratificación /
+raking)}\label{calibraciuxf3n-post-estratificaciuxf3n-raking}
+
+Calibrar por ola a \textbf{totales externos fiables} (p.~ej.,
+\textbf{Total} y \textbf{Sexo} de la población en pobreza del año de
+referencia):
+
+\[
+w_i^{(t)} = w_i^{(0)}\times w_i^{(\text{NR},t)}\times g_{i,t},\qquad
+\sum_{i\in c} w_i^{(t)}x_i = T_c.
+\]
+
+\subsection{Peso longitudinal (intersección
+1--3)}\label{peso-longitudinal-intersecciuxf3n-13}
+
+Aplicar ajustes de \textbf{permanencia} análogos a la no respuesta y
+\textbf{calibrar} la submuestra intersección 1--3 a totales de
+referencia (p.~ej., sexo/edad de Ola 1).
+
+\section{Operación y calidad de
+medición}\label{operaciuxf3n-y-calidad-de-mediciuxf3n}
+
+\begin{itemize}
+\tightlist
+\item
+  Mantener \textbf{modo} e \textbf{instrumentos} constantes entre olas;
+  documentar cambios inevitables y su impacto.
+\item
+  Protocolos de \textbf{edición/imputación} reproducibles (principios
+  Fellegi--Holt), alineados con el diseño de captura
+  (\citeproc{ref-groves_survey_2011}{Groves et~al., 2011}).
+\end{itemize}
+
+\subsection{Viabilidad y pertinencia del marco de
+captación}\label{viabilidad-y-pertinencia-del-marco-de-captaciuxf3n}
+
+Para la recogida de datos se utilizará un panel online y ya se ha
+contactado con Netquest, que apoyó el reclutamiento en el estudio previo
+y ofrece un servicio de calidad que garantiza respuestas fiables por
+parte de los participantes, contando además con un panel suficientemente
+amplio para cubrir los tamaños por ola previstos.
+
+Dentro de este panel, trabajaremos con la
+\href{https://www.aimc.es/otros-estudios-trabajos/clasificacion-socioeconomica/}{clasificación
+socioeconómica EGM} utilizada por Netquest, que es un índice de ingreso
+del hogar construido mediante un modelo de regresión que integra tres
+bloques informativos diferenciados: (i) ``Grupo'' del sustentador
+principal, definido por la matriz Ocupación × Nivel educativo y ordenado
+por ingresos medios (continúa la tradición de ``clase social'', pero
+anclada en renta observada); (ii) la actividad del sustentador
+(situación laboral/ocupacional vigente, distinta del ``Grupo'', por
+ejemplo ocupado, desempleado, inactivo), y (iii) la estructura del hogar
+mediante la matriz Tamaño del hogar × número de perceptores de ingreso
+(economías de escala y capacidad de generación de renta). Previo al
+modelamiento, los ingresos declarados se corrigen/imputan con la
+estimación del entrevistador y los cortes monetarios de los siete tramos
+se ajustan a la distribución de sueldos del Instituto Nacional de
+Estadísticas. Con ello, IE2 (\textless{} €745) e IE1 (€745--€1.312)
+representan, por construcción, los menores niveles de ingreso, que son
+los de interés para esta encuesta.
+
+Empíricamente, IE1 concentra en torno al 15--16\% e IE2 al 7--8\% de la
+población (≈23--24\% conjunta), con mayor presencia relativa de mujeres
+en los segmentos de menor ingreso. Este marco justifica focalizar la
+captación en IE2 y, de ser necesario, completar con IE1, manteniendo
+selección probabilística y posterior calibración por sexo y total.
+Operativamente, Netquest dispone de 4.300 casos en IE1 y 1.400 en IE2
+(total 5.700), stock que supera los requerimientos del diseño
+conservador (Ola 1 ≈ 1.752, Ola 3 ≈ 1.226) y respalda la viabilidad
+online del estudio con margen de error ≤ ±5 p.p. por sexo y poder ≥ 0,80
+para detectar diferencias de ≈8 p.p. entre sexos, sujeto a la
+financiación adecuada para incentivos y logística de campo.
+
+\section{Referencias}\label{referencias}
+
+\phantomsection\label{refs}
+\begin{CSLReferences}{1}{0}
+\bibitem[\citeproctext]{ref-groves_survey_2011}
+Groves, R. M., Fowler, F. J., Couper, M., Lepkowski, J. M., Singer, E.,
+\& Tourangeau, R. (2011). \emph{Survey {Methodology}} (2nd ed
+(Online-Ausg.)). Somerset: Wiley.
+
+\bibitem[\citeproctext]{ref-lynn_methodology_2009}
+Lynn, P. (Ed.). (2009). \emph{Methodology of {Longitudinal Surveys}}.
+New York, NY: John Wiley \& Sons.
+
+\end{CSLReferences}
+
+
+
+
+\end{document}
